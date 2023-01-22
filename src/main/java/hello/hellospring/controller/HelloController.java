@@ -12,11 +12,13 @@ public class HelloController {
     @GetMapping("hello")
     public String hello(Model model) {
         model.addAttribute("data", "hello!!");
-        return "hello";
+        return "hello"; // -> resources:templates/hello.html (Thymeleaf 템플릿 엔진 처리)
     }
 
+    // required = false로 지정하면 name에 해당하는 값이 없어도 Error 발생 x
+    // required 지정하지 않고 localhost:8080/hello-mvc 호출 시 파라미터가 없어 Error 발생 o
     @GetMapping("hello-mvc")
-    public String helloMvc(@RequestParam("name") String name, Model model){
+    public String helloMvc(@RequestParam(value = "name"/*, required = false*/) String name, Model model){
         model.addAttribute("name", name);
         return "hello-template";
     }
@@ -33,7 +35,7 @@ public class HelloController {
         Hello hello = new Hello();
         hello.setName(name);
         //Jackson (범용성 있음), Gson -> 기본 객체처리 MappingJackson2HttpMessageConverter
-        return hello;   // JSON 객체 형태로 반환
+        return hello;   // JSON 객체 형태로 반환 {"name","xxx"}
     }
 
     static class Hello {
