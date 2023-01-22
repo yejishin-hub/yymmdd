@@ -20,13 +20,14 @@ class MemoryMemberRepositoryTest {
         repository.clearStore();
     }
 
-    @Test
+    @Test // junit
     public void save(){
         Member member = new Member();
         member.setName("spring");
         repository.save(member);
         Member result = repository.findById(member.getId()).get();
 //        Assertions.assertEquals(member, null);
+        // Assertions - assertEquals : 다르면 오류 발생 (AssertionFailedError)
         assertThat(member).isEqualTo(result);
     }
 
